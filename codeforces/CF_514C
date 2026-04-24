@@ -1,0 +1,74 @@
+##Wato_and_Mechanism_x
+import java.io.*;
+import java.util.*;
+
+public class q514c {
+    static final long P = 31;
+    public static void main(String[] args)  {
+       Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+
+        int MAX = 600005;
+
+        long[] pow = new long[MAX];
+        pow[0] = 1;
+
+        for (int i = 1; i < MAX; i++)
+            pow[i] = pow[i - 1] * P;
+
+        HashSet<Long> set = new HashSet<>();
+
+        for (int i = 0; i < n; i++) {
+
+            String s = sc.next();
+            long hash = 0;
+
+            for (int j = 0; j < s.length(); j++) {
+                hash += (s.charAt(j) - 'a' + 1) * pow[j];
+            }
+
+            set.add(hash);
+        }
+
+        for (int i = 0; i < m; i++) {
+
+            String s = sc.next();
+            char[] arr = s.toCharArray();
+
+            long hash = 0;
+
+            for (int j = 0; j < arr.length; j++)
+                hash += (arr[j] - 'a' + 1) * pow[j];
+
+            boolean found = false;
+
+            for (int j = 0; j < arr.length && !found; j++) {
+
+                int original = arr[j] - 'a' + 1;
+
+                for (char c = 'a'; c <= 'c'; c++) {
+
+                    int val = c - 'a' + 1;
+
+                    if (val == original) continue;
+
+                    long newHash = hash - original * pow[j] + val * pow[j];
+
+                    if (set.contains(newHash)) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            if (found)
+                System.out.println("YES");
+            else
+                System.out.println("NO");
+        }
+
+        
+    }
+}
