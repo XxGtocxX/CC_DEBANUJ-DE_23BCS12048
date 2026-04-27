@@ -31,3 +31,16 @@ public:
         return dp[m - 1][n - 1];
     }
 };
+
+int main() {
+    vector<vector<int>> obstacleGrid = {
+        {0, 0, 0},
+        {0, 1, 0},
+        {0, 0, 0}
+    };
+
+    Solution obj;
+    cout << obj.uniquePathsWithObstacles(obstacleGrid) << endl;
+
+    return 0;
+}
